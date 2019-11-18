@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <title>Mauritz Funke Projectpage</title>
+
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="content">
+        <!--Nav-->
+        <%- include('partials/navbar.ejs', {site: 'admin'}) %>
+        <!--/Nav-->
+
+        <table>
+            <tr>
+                <th>
+                    <h2>ID</p>
+                </th>
+                <th>
+                    <h2>Name</h2>
+                </th>
+                <th>
+                    <h2>GoogleId</h2>
+                </th>
+                <th>
+                    <h2>isAdmin</h2>
+                </th>
+                <th></th>
+            </tr>
+            <% userTable.forEach((user) => {%>
+            <tr>
+                <th>
+                    <p><%=user._id%></p>
+                </th>
+                <th>
+                    <p><%=user.username%></p>
+                </th>
+                <th>
+                    <p><%=user.googleId%></p>
+                </th>
+                <th>
+                    <p><%=user.isAdmin%></p>
+                </th>
+                <th><a href="https://mauritzfunke.de/addadmin/add?id=<%=user._id%>"><i class="far fa-check-circle"></i></a></th>
+                <th><a href="https://mauritzfunke.de/addadmin/remove?id=<%=user._id%>"><i class="far fa-times-circle"></i></a></th>
+            </tr>
+            <%})%>
+        </table>
+        <!--Footer-->
+        <%- include('partials/footer.ejs') %>
+        <!--/Footer-->
+
+
+    </div>
+</body>

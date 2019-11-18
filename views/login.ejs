@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <title>Mauritz Funke Projectpage</title>
+
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+
+
+
+<body>
+
+    <!--Nav-->
+    <%- include('partials/navbar.ejs', {site: 'login'}) %>
+    <!--/Nav-->
+
+
+    <div class="content">
+        <h1>Login using:</h1>
+        <main>
+            <button class="button" onclick="window.location.href = 'https://mauritzfunke.de/auth/google';"><a>Google</a></button>
+        </main>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+</body>
+
+</html>

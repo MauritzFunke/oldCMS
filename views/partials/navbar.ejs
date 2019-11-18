@@ -1,0 +1,53 @@
+    <!--Nav-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <nav class="topnav" id="myTopnav">
+        <% if (site=='index') { %>
+            <a href="https://mauritzfunke.de/" class="active">Index</a>
+        <% } else { %>
+            <a href="https://mauritzfunke.de/">Index</a>
+        <% } %>
+        <% if (site=='contact') { %>
+            <a href="https://mauritzfunke.de/contact" class="active">Contact</a>
+        <% } else {%>
+            <a href="https://mauritzfunke.de/contact">Contact</a>
+        <% } %>
+
+        <% if (user) { %>
+            <% if (user.isAdmin) { %>
+
+            
+            <% if (site=='cms') { %>
+                <a href="https://mauritzfunke.de/cms" class="active">CMS</a>
+            <% } else { %>
+                <a href="https://mauritzfunke.de/cms">CMS</a>
+            <% } %>
+            <% if (site=='admin') { %>
+                <a href="https://mauritzfunke.de/addadmin" class="active">Add Admin</a>
+            <% } else { %>
+                <a href="https://mauritzfunke.de/addadmin">Add Admin</a>
+            <% } %>
+            <% } %>
+            <a href="https://mauritzfunke.de/auth/logout">Logout</a>
+        <% } else { %>
+            <% if (site=='login') { %>
+                <a href="https://mauritzfunke.de/auth/login" class="active">Login</a>
+            <% } else { %>
+                <a href="https://mauritzfunke.de/auth/login">Login</a>
+            <% } %>
+        <% } %>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+    <div class="content">
+    <script>
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+    </script>
+    <!--/Nav-->

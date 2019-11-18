@@ -1,0 +1,130 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <title>Mauritz Funke Projectpage</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://mauritzfunke.de//ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
+</head>
+
+<body>
+    <!--Nav-->
+    <%- include('partials/navbar.ejs', {site: 'contact'}) %>
+    <!--/Nav-->
+    <div class="content">
+    <% if(!user) {%>
+        <h1>You are not logged in!</h1>
+        <p>To contact me please <a href="https://mauritzfunke.de/auth/login">Log In</a>!</p>
+
+
+
+    <% } else {%>
+        <% if (!user.isAdmin) { %>
+
+
+            <form id="contact">
+                <br>
+                <input type="text" placeholder="Email" name="email" id="email" required></input>
+                <br>
+                <textarea type="text" placeholder="Your Message" name="message" id="message" required></textarea>
+                <br>
+                <div class="g-recaptcha" data-sitekey="6LdNq74UAAAAALeLYJ7AIwpcwGHgnh9Px_sD2SSy"></div>
+                <br>
+                <input id="submit" class="button" type="submit" value="Submit">
+                </div>
+            </form>
+            <script>
+                document.getElementById('contact').addEventListener('submit', submitForm);
+
+                function submitForm(e) {
+                    e.preventDefault();
+
+                    const email = document.querySelector('#email').value;
+                    const message = document.querySelector('#message').value;
+                    const captcha = document.querySelector('#g-recaptcha-response').value;
+                    fetch('/contact/sendMessage', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: email,
+                                message: message,
+                                captcha: captcha
+                            })
+                        })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            $.notify.defaults({
+                                className: "success"
+                            });
+                            if (data.success) {
+                                $.notify("Message send", {
+                                    position: "top center",
+                                    className: "success"
+                                });
+                                grecaptcha.reset();
+                            } else {
+                                $.notify("Message could not be send. Error code: " + data.msg, {
+                                    position: "top center",
+                                    className: 'error'
+                                });
+                                grecaptcha.reset();
+                            }
+                        });
+                }
+            </script>
+
+            <% } else if(user.isAdmin) {%>
+                <table class="message">
+                    <tr>
+                        <th>
+                            <h2>Name</h2>
+                        </th>
+                        <th>
+                            <h2>EMail</h2>
+                        </th>
+                        <th>
+                            <h2>Message</h2>
+                        </th>
+                        <th>
+                            <h2>Remove Message</h2>
+                        </th>
+                    </tr>
+                    <%messages.forEach((message) => { %>
+                        <tr>
+                            <th>
+                                <p>
+                                    <%=message.name%>
+                                </p>
+                            </th>
+                            <th>
+                                <p>
+                                    <%=message.email%>
+                                </p>
+                            </th>
+                            <th>
+                                <p>
+                                    <%=message.message%>
+                                </p>
+                            </th>
+                            <th>
+                                <a href="https://mauritzfunke.de/contact/removeMessage?id=<%=message._id%>"><i class="far fa-times-circle"></i></a>
+                            </th>
+                        </tr>
+                        <%}); %>
+                </table>
+
+                <% } %>
+    <%}%>
+                    <%- include('partials/footer.ejs') %>
+                </div>
+</body>

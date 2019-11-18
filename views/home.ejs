@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <title>Mauritz Funke Projectpage</title>
+
+    <link rel="stylesheet" type="text/css" href="https://mauritzfunke.de/css/stylesheet.css">
+    
+
+</head>
+
+
+
+<body>
+    <!--Nav-->
+    <%- include('partials/navbar.ejs', {site: 'index'}) %>
+    <!--/Nav-->
+    
+    <div class="content">
+            <header class="heading bg1">
+                    <h1>My Projects!</h1>
+            </header>
+        <table class="projects">
+            <tr>
+              <th><h2>Project</h2></th>
+              <th><h2>Description</h2></th>
+              <th><h2>Time</h2></th>
+            </tr>
+            <%projects.forEach((project) => { %>
+                <tr>
+                    <th><p><%=project.project%></p></th>
+                    <th><p><%=project.description%></p></th>
+                    <th><p><%=project.time%></p></th>
+                  </tr>
+            <%}); %>
+          </table>
+    <h1 class="heading bg2">My Skills</h1>
+    <table class="skills">
+        <tr>
+          <th><h2>Skill</h2></th>
+          <th><h2>Time</h2></th>
+          <th><h2>Level</h2></th>
+        </tr>
+        <%skills.forEach((skill) => { %>
+            <tr>
+                <th><p><%=skill.skill%></p></th>
+                <th><p><%=skill.time%></p></th>
+                <th><p><%=skill.level%></p></th>
+              </tr>
+        <%}); %>
+      </table>
+    </div>
+    <!--Footer-->
+    <%- include('partials/footer.ejs') %>
+    <!--/Footer-->
+</body>
+
+</html>

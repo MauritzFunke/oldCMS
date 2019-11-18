@@ -1,0 +1,84 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <title>Mauritz Funke Projectpage</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+
+
+
+<body>
+
+        <%- include('partials/navbar.ejs', {site: 'cms'}) %>
+
+
+    <div class="content">
+        <h1>Welcome to the Content Management System <%= user.username %></h1>
+        <form action="https://mauritzfunke.de/cms/newProject">
+        <h2 class="heading bg1">Projects</h2>
+        <table class="projects">
+            <tr>
+                <th><h2>ID</p></th>
+                <th><h2>Project</h2></th>
+                <th><h2>Description</h2></th>
+                <th><h2>Time</h2></th>
+                <th></th>
+            </tr>
+            <%projects.forEach((project) => { %>
+                <tr>
+                    <th><p><%=project._id%></p></th>
+                    <th><p><%=project.project%></p></th>
+                    <th><p><%=project.description%></p></th>
+                    <th><p><%=project.time%></p></th>
+                    <th><a href="https://mauritzfunke.de/cms/removeProject?id=<%=project._id%>"><i class="far fa-times-circle"></i></a></th>
+                  </tr>
+            <%}); %>
+            <tr>
+                <th></th>
+                <th><input type="text" placeholder="Project Name" name="name"></input></th>
+                <th><input type="text" placeholder="Description" name="description"></input></th>
+                <th><input type="text" placeholder="Time" name="time"></input></th>
+            </tr>
+        </table>
+        <input class="button" type="submit" value="Submit">
+    </form>
+
+    <form action="https://mauritzfunke.de/cms/newSkill">
+        <h2 class="heading bg2">Skills</h2>
+        <table class="projects">
+            <tr>
+                <th><h2>ID</p></th>
+                <th><h2>Skill</h2></th>
+                <th><h2>Time</h2></th>
+                <th><h2>Level</h2></th>
+                <th></th>
+            </tr>
+            <%skills.forEach((skill) => { %>
+                <tr>
+                    <th><p><%=skill._id%></p></th>
+                    <th><p><%=skill.skill%></p></th>
+                    <th><p><%=skill.time%></p></th>
+                    <th><p><%=skill.level%></p></th>
+                    <th><a href="https://mauritzfunke.de/cms/removeSkill?id=<%=skill._id%>"><i class="far fa-times-circle"></i></a></th>
+                  </tr>
+            <%}); %>
+            <tr>
+                <th></th>
+                <th><input type="text" placeholder="Skill" name="name"></input></th>
+                <th><input type="text" placeholder="Time" name="time"></input></th>
+                <th><input type="text" placeholder="Level" name="level"></input></th>
+            </tr>
+        </table>
+        <input class="button" type="submit" value="Submit">
+    </form>
+
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+    </body>
+</html>
